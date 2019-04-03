@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="wrap">
+          {{ massage }}
+
+
+          <!-- 变量赋值 -->
+         <p v-bind:title = "fuzhi">
+             {{ fuzhi }}
+         </p>
+
+      <!-- 隐藏或显示 -->
+
+         <p class="my_p"
+             v-bind:title = "yinxian"
+             v-if = "flag">
+                {{ yinxian }}
+         </p>
+
+         <p
+             v-for = "(value, index) in list"
+             :key = "index"
+             >
+               {{ value.text }}
+        </p>
+     
+
+        <!-- 数组语法 -->
+         <div v-bind:class = "[activeClass, comClass]">
+               我是class与style
+         </div>
+
+         <!-- 事件驱动 -->
+         <!-- 事件监听器 -->
+         <div @click = "fuji">
+            <button v-on:click = "handleFunction">按钮(事件监听器)</button>
+             
+            <!-- 双向数据绑定: v-model 可以获取 表单里相应的数据 -->
+            <input type="text" v-model = "inputValue"> <span> {{ inputValue }} </span>
+
+        </div>
+        
+        <!-- 事件冒泡 -->
+         <div ></div>
+
+
+
+
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+      
+      var vm=new Vue ({
+          el: "#wrap",
+          data: function(){
+              return{
+                massage: "我是div",
+                fuzhi: "我是被赋的值",
+                yinxian: "p标签隐显",
+                flag:true,
+                list: [
+                        { text: "苹果"},
+                        { text: "香蕉"},
+                        { text: "橙子"}
+                ],
+                activeClass: "my-class",
+                comClass: "ny-common-class",
+                inputValue: "",
+              }
+          },
+        //   methods管理行为，函数， 方法
+          methods: {
+              handleFunction: function () {
+               console.log(this);
+               console.log(this.massage);
+               this.flag=false;
+               this.doum();
+              
+              },
+
+              doum: function () {
+                  this.massage = "好好学习娶媳妇";
+              }
+          },
+
+        //    计算属性:computed 对象管理所有的计算属性
+           computed: {
+               resverseMessage: function () {
+                   return this.massage.split("").reverse().join("")
+               }
+           },
+
+      });
+
+
+
+    </script>
+</body>
+</html>
